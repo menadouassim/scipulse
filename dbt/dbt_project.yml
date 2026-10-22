@@ -1,0 +1,17 @@
+name: scipulse
+version: "1.0.0"
+config-version: 2
+profile: scipulse
+
+model-paths: ["models"]
+seed-paths: ["seeds"]
+test-paths: ["tests"]
+
+models:
+  scipulse:
+    staging:
+      +materialized: view
+      +schema: staging
+    marts:
+      +materialized: table
+      +schema: marts

@@ -1,0 +1,23 @@
+version: 2
+
+models:
+  - name: dim_categories
+    columns:
+      - name: category
+        tests: [unique, not_null]
+  - name: fct_publications_par_mois
+    columns:
+      - name: month
+        tests: [not_null]
+      - name: nb_publications
+        tests: [not_null]
+  - name: fct_auteurs_prolifiques
+    columns:
+      - name: author_name
+        tests: [not_null]
+      - name: nb_papers
+        tests: [not_null]
+  - name: fct_arxiv_hn_popularity
+    columns:
+      - name: arxiv_id
+        tests: [unique, not_null]

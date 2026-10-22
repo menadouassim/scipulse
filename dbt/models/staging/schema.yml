@@ -1,0 +1,24 @@
+version: 2
+
+models:
+  - name: stg_arxiv_papers
+    description: Articles ArXiv normalisés
+    columns:
+      - name: arxiv_id
+        tests: [unique, not_null]
+      - name: title
+        tests: [not_null]
+      - name: primary_category
+        tests: [not_null]
+  - name: stg_arxiv_authors
+    columns:
+      - name: arxiv_id
+        tests:
+          - not_null
+          - relationships:
+              to: ref('stg_arxiv_papers')
+              field: arxiv_id
+  - name: stg_arxiv_hn_links
+    columns:
+      - name: arxiv_id
+        tests: [not_null]

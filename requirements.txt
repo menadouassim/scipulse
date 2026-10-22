@@ -15,14 +15,14 @@ pandas>=2.2
 polars>=0.20                   # Alternative performante à Pandas
 
 # --- Qualité des données ---
-great-expectations>=0.18
+great-expectations>=1.0,<2.0
 
 # --- NLP léger ---
 scikit-learn>=1.4              # TF-IDF, vectorisation
 # spacy>=3.7                   # Optionnel : NLP avancé (décommenter si besoin)
 
 # --- dbt ---
-dbt-postgres>=1.7
+dbt-postgres>=1.7,<1.10
 
 # --- Tests ---
 pytest>=8.0
@@ -31,3 +31,12 @@ pytest-cov>=5.0
 # --- Utilitaires ---
 python-dotenv>=1.0
 tqdm>=4.66                     # Barres de progression
+
+# --- Client MinIO natif ---
+minio>=7.2
+
+# --- PostgreSQL ---
+psycopg2-binary>=2.9
+
+# --- Kaggle (optionnel) ---
+kaggle>=1.6

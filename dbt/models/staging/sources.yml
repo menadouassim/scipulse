@@ -1,0 +1,10 @@
+version: 2
+
+sources:
+  - name: raw
+    schema: public
+    description: Miroir PostgreSQL des index Elasticsearch (src/transform/load_postgres.py)
+    tables:
+      - name: raw_arxiv_papers
+      - name: raw_arxiv_authors
+      - name: raw_arxiv_hn_links

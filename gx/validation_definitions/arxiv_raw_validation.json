@@ -1,0 +1,22 @@
+{
+  "data": {
+    "asset": {
+      "id": "cd022afb-ee84-4023-83b1-b8e103c9135f",
+      "name": "arxiv_raw_data"
+    },
+    "batch_definition": {
+      "id": "de6386ab-aea5-475a-b84a-3e9b988a7b73",
+      "name": "whole_dataframe"
+    },
+    "datasource": {
+      "id": "243547c1-7de7-4deb-ad5b-14071f7f362c",
+      "name": "arxiv_raw_pandas"
+    }
+  },
+  "id": "ff7bacbb-858a-4cf3-809c-200c618b2759",
+  "name": "arxiv_raw_validation",
+  "suite": {
+    "id": "75ad4ac8-a694-42a3-9d3f-d2a6255a626e",
+    "name": "arxiv_raw_suite"
+  }
+}

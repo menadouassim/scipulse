@@ -1,0 +1,12 @@
+scipulse:
+  target: dev
+  outputs:
+    dev:
+      type: postgres
+      host: "{{ env_var('PG_HOST', 'localhost') }}"
+      port: "{{ env_var('PG_PORT', '5432') | int }}"
+      user: "{{ env_var('PG_USER', 'scipulse') }}"
+      password: "{{ env_var('PG_PASSWORD', 'scipulse') }}"
+      dbname: "{{ env_var('PG_DATABASE', 'scipulse') }}"
+      schema: public
+      threads: 4

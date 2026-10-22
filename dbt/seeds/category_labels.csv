@@ -1,0 +1,53 @@
+category,label,domain,subdomain
+cs.AI,Artificial Intelligence,Computer Science,AI
+cs.AR,Hardware Architecture,Computer Science,Systems
+cs.CC,Computational Complexity,Computer Science,Theory
+cs.CE,Computational Engineering,Computer Science,Applications
+cs.CG,Computational Geometry,Computer Science,Theory
+cs.CL,Computation and Language,Computer Science,AI
+cs.CR,Cryptography and Security,Computer Science,Security
+cs.CV,Computer Vision,Computer Science,AI
+cs.CY,Computers and Society,Computer Science,Applications
+cs.DB,Databases,Computer Science,Data
+cs.DC,Distributed Computing,Computer Science,Systems
+cs.DL,Digital Libraries,Computer Science,Data
+cs.DM,Discrete Mathematics,Computer Science,Theory
+cs.DS,Data Structures and Algorithms,Computer Science,Theory
+cs.ET,Emerging Technologies,Computer Science,Systems
+cs.FL,Formal Languages,Computer Science,Theory
+cs.GT,Game Theory,Computer Science,Theory
+cs.GR,Graphics,Computer Science,Applications
+cs.HC,Human-Computer Interaction,Computer Science,Applications
+cs.IR,Information Retrieval,Computer Science,Data
+cs.IT,Information Theory,Computer Science,Theory
+cs.LG,Machine Learning,Computer Science,AI
+cs.LO,Logic in Computer Science,Computer Science,Theory
+cs.MA,Multiagent Systems,Computer Science,AI
+cs.MM,Multimedia,Computer Science,Applications
+cs.MS,Mathematical Software,Computer Science,Systems
+cs.NA,Numerical Analysis,Computer Science,Theory
+cs.NE,Neural and Evolutionary Computing,Computer Science,AI
+cs.NI,Networking and Internet Architecture,Computer Science,Systems
+cs.OS,Operating Systems,Computer Science,Systems
+cs.PF,Performance,Computer Science,Systems
+cs.PL,Programming Languages,Computer Science,Systems
+cs.RO,Robotics,Computer Science,AI
+cs.SC,Symbolic Computation,Computer Science,Theory
+cs.SD,Sound,Computer Science,Applications
+cs.SE,Software Engineering,Computer Science,Systems
+cs.SI,Social and Information Networks,Computer Science,Applications
+cs.SY,Systems and Control,Computer Science,Systems
+stat.ML,Machine Learning (Statistics),Statistics,Machine Learning
+stat.ME,Methodology,Statistics,Methodology
+stat.TH,Statistics Theory,Statistics,Theory
+stat.AP,Applications,Statistics,Applications
+stat.CO,Computation,Statistics,Methodology
+math.IT,Information Theory (Math),Mathematics,Information Theory
+math.OC,Optimization and Control,Mathematics,Optimization
+math.ST,Statistics Theory (Math),Mathematics,Statistics
+eess.AS,Audio and Speech Processing,Electrical Engineering,Signal Processing
+eess.IV,Image and Video Processing,Electrical Engineering,Signal Processing
+eess.SP,Signal Processing,Electrical Engineering,Signal Processing
+eess.SY,Systems and Control (EESS),Electrical Engineering,Systems
+q-bio.NC,Neurons and Cognition,Quantitative Biology,Neuroscience
+physics.soc-ph,Physics and Society,Physics,Society

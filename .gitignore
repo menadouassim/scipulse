@@ -205,3 +205,25 @@ cython_debug/
 marimo/_static/
 marimo/_lsp/
 __marimo__/
+
+
+# SciPulse
+data/arxiv-raw/*.json
+dbt/target/
+dbt/logs/
+dbt/dbt_packages/
+gx/uncommitted/
+reports/
+*.zip
+
+# Hors dépôt : ancien dossier de travail, archives et documents personnels
+scipulse/
+airflow.zip
+CV_*.md
+CV_*.txt
+START_HERE.md
+QUICK_REFERENCE.txt
+README_CV_MATERIALS.md
+INTERVIEW_TALKING_POINTS.md
+.DS_Store
+

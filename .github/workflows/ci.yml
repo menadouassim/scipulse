@@ -1,0 +1,71 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  unit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+      - run: pip install -r requirements.txt
+      - run: pytest
+
+  integration:
+    runs-on: ubuntu-latest
+    services:
+      elasticsearch:
+        image: docker.elastic.co/elasticsearch/elasticsearch:8.13.4
+        env:
+          discovery.type: single-node
+          xpack.security.enabled: "false"
+          ES_JAVA_OPTS: -Xms512m -Xmx512m
+        ports: ["9200:9200"]
+        options: >-
+          --health-cmd "curl -f http://localhost:9200/_cluster/health"
+          --health-interval 10s --health-timeout 5s --health-retries 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+      - run: pip install -r requirements.txt
+      - run: pytest -m integration
+
+  dbt:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_USER: scipulse
+          POSTGRES_PASSWORD: scipulse
+          POSTGRES_DB: scipulse
+        ports: ["5432:5432"]
+        options: >-
+          --health-cmd "pg_isready -U scipulse" --health-interval 5s --health-retries 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install "dbt-postgres>=1.7,<2.0"
+      - name: Seed raw tables and run dbt
+        env:
+          PGPASSWORD: scipulse
+        run: |
+          psql -h localhost -U scipulse -d scipulse -c "
+            CREATE TABLE raw_arxiv_papers (arxiv_id TEXT PRIMARY KEY, title TEXT, abstract TEXT, categories TEXT,
+              primary_category TEXT, date_published DATE, date_updated DATE, doi TEXT);
+            CREATE TABLE raw_arxiv_authors (arxiv_id TEXT, position INT, author_name TEXT);
+            CREATE TABLE raw_arxiv_hn_links (arxiv_id TEXT, hn_id BIGINT, hn_score INT, hn_comments_count INT);
+            INSERT INTO raw_arxiv_papers VALUES ('2301.00001','A title','An abstract of some length','cs.AI cs.LG','cs.AI','2023-01-01','2023-01-02',NULL);
+            INSERT INTO raw_arxiv_authors VALUES ('2301.00001',0,'Jane Doe');
+            INSERT INTO raw_arxiv_hn_links VALUES ('2301.00001',42,10,3);"
+          cd dbt && dbt seed --profiles-dir . && dbt run --profiles-dir . && dbt test --profiles-dir .

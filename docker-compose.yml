@@ -6,7 +6,10 @@
 ###############################################################################
 
 x-airflow-common: &airflow-common
-  image: apache/airflow:2.9.3-python3.11
+  build:
+    context: .
+    dockerfile: docker/airflow/Dockerfile
+  image: scipulse-airflow:2.9.3
   environment: &airflow-env
     AIRFLOW__CORE__EXECUTOR: LocalExecutor
     AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@postgres:5432/airflow
@@ -18,12 +21,21 @@ x-airflow-common: &airflow-common
     AIRFLOW_CONN_ELASTICSEARCH_DEFAULT: http://elasticsearch:9200
     AIRFLOW_CONN_MINIO_DEFAULT: s3://minioadmin:minioadmin@?host=http%3A%2F%2Fminio%3A9000
     AIRFLOW_CONN_POSTGRES_DWH: postgresql://scipulse:scipulse@postgres:5432/scipulse
+    # Configuration lue par le code src/ (src.utils.config)
+    PYTHONPATH: /opt/airflow
+    ES_HOST: http://elasticsearch:9200
+    PG_HOST: postgres
+    MINIO_ENDPOINT: http://minio:9000
+    KAGGLE_USERNAME: ${KAGGLE_USERNAME:-}
+    KAGGLE_KEY: ${KAGGLE_KEY:-}
   volumes:
     - ./airflow/dags:/opt/airflow/dags
     - ./airflow/plugins:/opt/airflow/plugins
     - ./airflow/logs:/opt/airflow/logs
     - ./src:/opt/airflow/src
     - ./data:/opt/airflow/data
+    - ./dbt:/opt/airflow/dbt
+    - ./gx:/opt/airflow/gx
   depends_on:
     postgres:
       condition: service_healthy
@@ -104,7 +116,7 @@ services:
       POSTGRES_PASSWORD: airflow
       POSTGRES_DB: airflow
     ports:
-      - "5432:5432"
+      - "${PG_PORT:-5432}:5432"   # PG_PORT=5433 si un PostgreSQL local occupe déjà 5432
     volumes:
       - pg-data:/var/lib/postgresql/data
       - ./docker/postgres/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
@@ -120,7 +132,9 @@ services:
   #  MINIO  (S3-compatible — landing zone)
   # ═══════════════════════════════════════════════════════════════════════════
   minio:
-    image: minio/minio:latest
+    # Image compilée depuis les sources (plus de publication sur Docker Hub) — voir docker/minio/Dockerfile
+    build: ./docker/minio
+    image: scipulse-minio:local
     container_name: scipulse-minio
     command: server /data --console-address ":9001"
     environment:
@@ -136,7 +150,7 @@ services:
 
   # Création automatique des buckets au démarrage
   minio-init:
-    image: minio/mc:latest
+    image: scipulse-minio:local
     container_name: scipulse-minio-init
     depends_on:
       - minio
